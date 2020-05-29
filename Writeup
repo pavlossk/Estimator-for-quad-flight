@@ -1,0 +1,93 @@
+Scenario 1: Sensor Noise
+
+GPS and IMU measurements, with standard deviation(sigma) for those sensors.
+
+image 1
+
+Scenario 2: Attitude Estimation
+
+Errors of Linear approximation
+
+image 2
+
+Errors after non-linear implementation
+
+image 3
+
+Passing scenario 
+
+image 4
+
+PASS: ABS(Quad.Est.E.MaxEuler) was less than 0.100000 for at least 3.000000 seconds
+
+- Implemantation: line 99 to line 121 (Implement a better rate gyro attitude integration)
+
+
+Scenario 3: Prediction Step
+
+Prediction of the state based on the acceleration measurement
+
+image 5
+
+First part implementation
+
+image 6
+
+Prediction implementation
+
+image 7
+
+- Implementation:  
+
+PredictState method: line 180 to line 192.
+GetRbgPrime method: line 216 to line 234.
+Predict method: line 277 to line 288.
+
+Scenario 4: Magnetometer Update
+
+Update implementation with equation usage ( Estimation for Quadrotors paper)
+
+image 8
+
+Passing scenario
+
+image 9
+
+PASS: ABS(Quad.Est.E.Yaw) was less than 0.120000 for at least 10.000000 seconds
+PASS: ABS(Quad.Est.E.Yaw-0.000000) was less than Quad.Est.S.Yaw for 67% of the time
+
+- Implementation:  line 341 to line 353 (magnetometer update)
+
+
+Scenario 5: Closed Loop + GPS Update
+
+Update the GPS by eliminating the ideal estimator and equations from Estimation for Quadrotors paper
+
+Gps Update
+
+image 10
+
+
+Passing scenario
+
+image 11
+
+PASS: ABS(Quad.Est.E.Pos) was less than 1.000000 for at least 20.000000 seconds
+
+
+- Implementation: line 310 to line 322 (GPS update)
+
+Scenario 6: Custom controller 
+
+Adding the custom controller created in the previous project 
+
+Parameters with custom controller 
+
+image 12
+
+
+Passing scenario
+
+image 13
+
+PASS: ABS(Quad.Est.E.Pos) was less than 1.000000 for at least 20.000000 seconds
